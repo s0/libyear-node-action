@@ -1,0 +1,26 @@
+{
+  "name": "libyear-node-action",
+  "scripts": {
+    "build": "tsc && ncc build lib/src/run",
+    "lint-prettier": "prettier -c src/**/* test/**/*.ts",
+    "lint": "npm run lint-prettier",
+    "lint:fix": "prettier -w src/**/* test/**/*.ts",
+    "test": "jest --projects test/jest.config.js --runInBand --verbose"
+  },
+  "devDependencies": {
+    "@types/git-url-parse": "^9.0.0",
+    "@types/jest": "^25.2.3",
+    "@types/node": "^12.20.13",
+    "@zeit/ncc": "^0.20.5",
+    "dotenv": "^8.6.0",
+    "git-url-parse": "^11.4.4",
+    "jest": "^26.6.3",
+    "prettier": "^2.3.0",
+    "ts-jest": "^26.5.6",
+    "ts-node": "^8.10.2",
+    "typescript": "^3.9.9"
+  },
+  "dependencies": {
+    "isomorphic-git": "^1.8.2"
+  }
+}
