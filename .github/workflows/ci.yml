@@ -13,7 +13,6 @@ jobs:
         node-version: 10.x
     - name: 'Build'
       run: |
-        cd action
         npm install
         npm run build
     - name: Check no files have changes
@@ -29,15 +28,12 @@ jobs:
         node-version: 10.x
     - name: Install NPM Packages
       run: |
-        cd action
         npm install
     - name: Run Unit Tests
       run: |
-        cd action
         npm run test -- --coverage
     - name: Check Linting
       run: |
-        cd action
         npm run lint
     - name: Submit to CodeCov
       uses: codecov/codecov-action@v1

@@ -4,7 +4,7 @@ description: 'Track how well a repository is keeping up-to-date with NPM depende
 author: 'Sam Lanning <sam@samlanning.com>'
 runs:
   using: 'node12'
-  main: 'action/dist/index.js'
+  main: 'dist/index.js'
 branding:
   icon: 'bar-chart-2'
   color: 'purple'
