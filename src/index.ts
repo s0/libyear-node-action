@@ -1,6 +1,7 @@
 import { PathReporter } from 'io-ts/PathReporter';
 import { isRight } from 'fp-ts/Either';
 import { promises as fs } from 'fs';
+import * as path from 'path';
 
 import { Environment, ENVIRONMENT } from './environment';
 import { runLibyear, getTotals, metrics, getResultsTable } from './libyear';
@@ -23,7 +24,8 @@ export const runAction = async ({
   };
 
   if (env.GITHUB_EVENT_NAME === 'push') {
-    const report = await runLibyear(cwd);
+    const dir = env.FOLDER ? path.join(cwd, env.FOLDER) : cwd;
+    const report = await runLibyear(dir);
 
     log.log('Result: ');
     log.table(getResultsTable(report));
