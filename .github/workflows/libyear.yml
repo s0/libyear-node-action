@@ -1,0 +1,11 @@
+name: Libyear
+on: push
+
+jobs:
+  libyear:
+    name: Libyear
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: Run libyear action
+      uses: ./
