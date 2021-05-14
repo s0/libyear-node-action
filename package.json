@@ -1,7 +1,7 @@
 {
   "name": "libyear-node-action",
   "scripts": {
-    "build": "tsc && ncc build lib/src/run",
+    "build": "tsc && ncc build lib/src/run -o dist/main && ncc build node_modules/libyear/bin/libyear -o dist/libyear",
     "lint-prettier": "prettier -c src/**/* test/**/*.ts",
     "lint": "npm run lint-prettier",
     "lint:fix": "prettier -w src/**/* test/**/*.ts",
