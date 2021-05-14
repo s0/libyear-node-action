@@ -38,5 +38,5 @@ jobs:
     - name: Submit to CodeCov
       uses: codecov/codecov-action@v1
       with:
-        file: ./action/coverage/lcov.info
+        file: ./coverage/lcov.info
         fail_ci_if_error: true
