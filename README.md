@@ -34,7 +34,26 @@ jobs:
     - uses: s0/libyear-node-action@v0.0.1
 ```
 
-### Outputs
+## Configuration
+
+All configuration options are passed in via `env`, as environment variables. For example:
+
+```yml
+jobs:
+  deploy:
+    # ...
+    - uses: s0/libyear-node-action@v0.0.1
+      env:
+        FOLDER: some/sub/directory
+```
+
+### Full list of variables
+
+| Env Variable       | Description                                                                                      | Required?     |
+| ------------------ | ------------------------------------------------------------------------------------------------ | ------------- |
+| `FOLDER`           | Which directory within your repository should `libyear` be run in. (Default: root of repository) | No            |
+
+## Outputs
 
 This action generates outputs that can be used in later steps or outputs
 *(for example to generate badges to display in your README, see below)*.
@@ -52,7 +71,7 @@ Each of them represents a
 | `minor`    | An integer                                            |
 | `patch`    | An integer                                            |
 
-### Generating badges using libyear stats
+### Example: Generating badges using libyear stats
 
 Here's an example workflow that will generate a badge for you and push it to
 a special branch that can be referenced in e.g. your README.
