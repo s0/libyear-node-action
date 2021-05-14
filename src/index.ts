@@ -23,7 +23,10 @@ export const runAction = async ({
     return new Error(msg);
   };
 
-  if (env.GITHUB_EVENT_NAME === 'push') {
+  if (
+    env.GITHUB_EVENT_NAME === 'push' ||
+    env.GITHUB_EVENT_NAME === 'schedule'
+  ) {
     const dir = env.FOLDER ? path.join(cwd, env.FOLDER) : cwd;
     const report = await runLibyear(dir);
 

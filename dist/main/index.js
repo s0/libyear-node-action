@@ -4052,7 +4052,8 @@ var runAction = function (_a) {
                         log.error("::error ::" + msg);
                         return new Error(msg);
                     };
-                    if (!(env.GITHUB_EVENT_NAME === 'push')) return [3 /*break*/, 3];
+                    if (!(env.GITHUB_EVENT_NAME === 'push' ||
+                        env.GITHUB_EVENT_NAME === 'schedule')) return [3 /*break*/, 3];
                     dir = env.FOLDER ? path.join(cwd, env.FOLDER) : cwd;
                     return [4 /*yield*/, libyear_1.runLibyear(dir)];
                 case 2:
