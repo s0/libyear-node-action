@@ -1,0 +1,59 @@
+name: Generate Badges
+on: push
+
+jobs:
+  get-badges:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: Use Node.js
+      uses: actions/setup-node@v1
+      with:
+        node-version: 10.x
+    - run: npm install
+    - id: libyear
+      uses: ./
+    - run: mkdir badges
+    - uses: emibcn/badge-action@v1
+      with:
+        label: 'libyear drift'
+        status: ${{ steps.libyear.outputs.drift }} year(s) behind
+        color: 'blue'
+        path: 'badges/drift.svg'
+    - uses: emibcn/badge-action@v1
+      with:
+        label: 'libyear pulse'
+        status: ${{ steps.libyear.outputs.pulse }} year(s) behind
+        color: 'blue'
+        path: 'badges/pulse.svg'
+    - uses: emibcn/badge-action@v1
+      with:
+        label: 'libyear'
+        status: ${{ steps.libyear.outputs.releases }} release(s) behind
+        color: 'blue'
+        path: 'badges/releases.svg'
+    - uses: emibcn/badge-action@v1
+      with:
+        label: 'libyear'
+        status: ${{ steps.libyear.outputs.major }} major release(s) behind
+        color: 'blue'
+        path: 'badges/major.svg'
+    - uses: emibcn/badge-action@v1
+      with:
+        label: 'libyear'
+        status: ${{ steps.libyear.outputs.minor }} minor release(s) behind
+        color: 'blue'
+        path: 'badges/minor.svg'
+    - uses: emibcn/badge-action@v1
+      with:
+        label: 'libyear'
+        status: ${{ steps.libyear.outputs.patch }} patch release(s) behind
+        color: 'blue'
+        path: 'badges/patch.svg'
+    - uses: s0/git-publish-subdir-action@develop
+      env:
+        REPO: self
+        BRANCH: badges
+        FOLDER: badges
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
