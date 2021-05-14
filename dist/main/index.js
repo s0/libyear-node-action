@@ -3975,6 +3975,25 @@ exports.bind = bind;
 
 "use strict";
 
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -4016,12 +4035,13 @@ exports.main = exports.runAction = void 0;
 var PathReporter_1 = __webpack_require__(306);
 var Either_1 = __webpack_require__(311);
 var fs_1 = __webpack_require__(747);
+var path = __importStar(__webpack_require__(622));
 var environment_1 = __webpack_require__(626);
 var libyear_1 = __webpack_require__(569);
 var runAction = function (_a) {
     var env = _a.env, log = _a.log, cwd = _a.cwd;
     return __awaiter(void 0, void 0, void 0, function () {
-        var json, error, report, totals, _i, metrics_1, metric, val, output;
+        var json, error, dir, report, totals, _i, metrics_1, metric, val, output;
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0: return [4 /*yield*/, fs_1.promises.readFile(env.GITHUB_EVENT_PATH)];
@@ -4032,7 +4052,8 @@ var runAction = function (_a) {
                         return new Error(msg);
                     };
                     if (!(env.GITHUB_EVENT_NAME === 'push')) return [3 /*break*/, 3];
-                    return [4 /*yield*/, libyear_1.runLibyear(cwd)];
+                    dir = env.FOLDER ? path.join(cwd, env.FOLDER) : cwd;
+                    return [4 /*yield*/, libyear_1.runLibyear(dir)];
                 case 2:
                     report = _b.sent();
                     log.log('Result: ');
@@ -4126,11 +4147,19 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ENVIRONMENT = void 0;
 var t = __importStar(__webpack_require__(338));
-exports.ENVIRONMENT = t.type({
-    /** Implicit environment variable passed by GitHub */
-    GITHUB_EVENT_PATH: t.string,
-    GITHUB_EVENT_NAME: t.string,
-});
+exports.ENVIRONMENT = t.intersection([
+    t.type({
+        /** Implicit environment variable passed by GitHub */
+        GITHUB_EVENT_PATH: t.string,
+        GITHUB_EVENT_NAME: t.string,
+    }),
+    t.partial({
+        /**
+         * Folder within the repository to run libyear on
+         */
+        FOLDER: t.string,
+    }),
+]);
 
 
 /***/ }),

@@ -32,15 +32,24 @@ export const runAction = async ({
   eventJson,
   eventName,
   logToConsole,
+  extraEnv,
   copySpec,
 }: {
   eventJson: 'missing-file' | 'missing-var' | {};
   eventName?: string;
   logToConsole: boolean;
+  /** Additional environment variables to send to the action */
+  extraEnv?: Partial<Environment>;
   /**
    * If set, copy the files from this spec directory to the package directory
    */
-  copySpec?: string;
+  copySpec?: {
+    spec: string;
+    /**
+     * If set, use this directory to store the package json in
+     */
+    subdir?: string[];
+  };
 }) => {
   const runTimestamp = Date.now();
 
@@ -50,7 +59,9 @@ export const runAction = async ({
   const packageDir = path.join(runDir, 'package');
   await mkdirP(packageDir);
 
-  const env: Partial<Environment> = {};
+  const env: Partial<Environment> = {
+    ...extraEnv,
+  };
 
   const eventJsonPath = path.join(runDir, 'event.json');
   if (eventJson === 'missing-file') {
@@ -65,8 +76,10 @@ export const runAction = async ({
   }
 
   if (copySpec) {
-    const srcPkg = path.join(SPEC_DIR, copySpec, 'package.json');
-    const dstPkg = path.join(packageDir, 'package.json');
+    const srcPkg = path.join(SPEC_DIR, copySpec.spec, 'package.json');
+    const dstDir = path.join(packageDir, ...(copySpec.subdir || []));
+    await mkdirP(dstDir);
+    const dstPkg = path.join(dstDir, 'package.json');
     const json = JSON.parse((await fs.readFile(srcPkg)).toString());
     json.name = `test-${runTimestamp}`;
     await fs.writeFile(dstPkg, JSON.stringify(json, null, '  '));

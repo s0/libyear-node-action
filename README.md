@@ -19,6 +19,10 @@ your workflow, and pass in the required configuration options:
 it is recommended you install your NPM using your preferred package manager
 before running this action*
 
+**Note: We recommend using the
+[latest release](https://github.com/s0/libyear-node-action/releases) rather than
+`develop` to avoid future breaking changes with your workflow.
+
 ```yml
 jobs:
   deploy:
@@ -31,10 +35,29 @@ jobs:
     - run: npm install
 
     # Calculate libyear
-    - uses: s0/libyear-node-action@v0.0.1
+    - uses: s0/libyear-node-action@develop
 ```
 
-### Outputs
+## Configuration
+
+All configuration options are passed in via `env`, as environment variables. For example:
+
+```yml
+jobs:
+  deploy:
+    # ...
+    - uses: s0/libyear-node-action@develop
+      env:
+        FOLDER: some/sub/directory
+```
+
+### Full list of variables
+
+| Env Variable       | Description                                                                                      | Required?     |
+| ------------------ | ------------------------------------------------------------------------------------------------ | ------------- |
+| `FOLDER`           | Which directory within your repository should `libyear` be run in. (Default: root of repository) | No            |
+
+## Outputs
 
 This action generates outputs that can be used in later steps or outputs
 *(for example to generate badges to display in your README, see below)*.
@@ -52,7 +75,7 @@ Each of them represents a
 | `minor`    | An integer                                            |
 | `patch`    | An integer                                            |
 
-### Generating badges using libyear stats
+### Example: Generating badges using libyear stats
 
 Here's an example workflow that will generate a badge for you and push it to
 a special branch that can be referenced in e.g. your README.
@@ -86,7 +109,7 @@ jobs:
     # (notice how the libyear step has an id, this is referenced later)
     - run: npm install
     - id: libyear
-      uses: s0/libyear-node-action@v0.0.1
+      uses: s0/libyear-node-action@develop
 
     # Generate a badge and store it in the badge/directory
     - run: mkdir badges
@@ -113,9 +136,5 @@ We use this for this repository, you can see the workflow here:
 
 ## TODO
 
-* Add functionality to compare libyear metrics between target and base of a pull
-  request, and leave a comment on the PR with the difference.
-* Allow for libyear to be run against different directories
-  (e.g. to support monorepos)
-* Allow for configuration of the arguments to send to libyear
-* Switch to programmatic use once that becomes available in `libyear`
+Please see the [issues](https://github.com/s0/libyear-node-action/issues) for
+details of planned work.
