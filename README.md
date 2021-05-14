@@ -19,6 +19,10 @@ your workflow, and pass in the required configuration options:
 it is recommended you install your NPM using your preferred package manager
 before running this action*
 
+**Note: We recommend using the
+[latest release](https://github.com/s0/libyear-node-action/releases) rather than
+`develop` to avoid future breaking changes with your workflow.
+
 ```yml
 jobs:
   deploy:
@@ -31,7 +35,7 @@ jobs:
     - run: npm install
 
     # Calculate libyear
-    - uses: s0/libyear-node-action@v0.0.1
+    - uses: s0/libyear-node-action@develop
 ```
 
 ## Configuration
@@ -42,7 +46,7 @@ All configuration options are passed in via `env`, as environment variables. For
 jobs:
   deploy:
     # ...
-    - uses: s0/libyear-node-action@v0.0.1
+    - uses: s0/libyear-node-action@develop
       env:
         FOLDER: some/sub/directory
 ```
@@ -105,7 +109,7 @@ jobs:
     # (notice how the libyear step has an id, this is referenced later)
     - run: npm install
     - id: libyear
-      uses: s0/libyear-node-action@v0.0.1
+      uses: s0/libyear-node-action@develop
 
     # Generate a badge and store it in the badge/directory
     - run: mkdir badges
