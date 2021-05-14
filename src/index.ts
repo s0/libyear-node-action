@@ -32,8 +32,11 @@ export const runAction = async ({
     log.log('Totals: ');
     const totals = getTotals(report);
     for (const metric of metrics) {
-      log.log(`${metric}: ${totals.get(metric)}`);
-      log.log(`::set-output name=${metric}::${totals.get(metric)}`);
+      const val = totals.get(metric);
+      log.log(`${metric}: ${val}`);
+      const output =
+        metric === 'drift' || metric === 'pulse' ? Number(val).toFixed(2) : val;
+      log.log(`::set-output name=${metric}::${output}`);
     }
   } else if (env.GITHUB_EVENT_NAME === 'pull_request') {
     throw new Error('TODO');

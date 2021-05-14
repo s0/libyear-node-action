@@ -21,14 +21,15 @@ describe('push-workflow', () => {
     );
 
     // Ensure that variables are set
-    for (const metric of [
-      'drift',
-      'pulse',
-      'releases',
-      'major',
-      'minor',
-      'patch',
-    ] as const) {
+    for (const metric of ['drift', 'pulse'] as const) {
+      expect(specTotals.get(metric)).toBeTruthy();
+      expect(run.stdout).toMatch(
+        `::set-output name=${metric}::${Number(specTotals.get(metric)).toFixed(
+          2
+        )}`
+      );
+    }
+    for (const metric of ['releases', 'major', 'minor', 'patch'] as const) {
       expect(specTotals.get(metric)).toBeTruthy();
       expect(run.stdout).toMatch(
         `::set-output name=${metric}::${specTotals.get(metric)}`

@@ -4021,7 +4021,7 @@ var libyear_1 = __webpack_require__(569);
 var runAction = function (_a) {
     var env = _a.env, log = _a.log, cwd = _a.cwd;
     return __awaiter(void 0, void 0, void 0, function () {
-        var json, error, report, totals, _i, metrics_1, metric;
+        var json, error, report, totals, _i, metrics_1, metric, val, output;
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0: return [4 /*yield*/, fs_1.promises.readFile(env.GITHUB_EVENT_PATH)];
@@ -4042,8 +4042,10 @@ var runAction = function (_a) {
                     totals = libyear_1.getTotals(report);
                     for (_i = 0, metrics_1 = libyear_1.metrics; _i < metrics_1.length; _i++) {
                         metric = metrics_1[_i];
-                        log.log(metric + ": " + totals.get(metric));
-                        log.log("::set-output name=" + metric + "::" + totals.get(metric));
+                        val = totals.get(metric);
+                        log.log(metric + ": " + val);
+                        output = metric === 'drift' || metric === 'pulse' ? Number(val).toFixed(2) : val;
+                        log.log("::set-output name=" + metric + "::" + output);
                     }
                     return [3 /*break*/, 4];
                 case 3:
