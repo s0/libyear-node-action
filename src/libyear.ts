@@ -22,6 +22,7 @@ export const setLibyearPath = (path: string) => {
  * (supporting both live (built) and test environments)
  */
 const getLibyearModulePath = () => {
+  /* istanbul ignore else */
   if (libyearPath) {
     return libyearPath;
   } else {

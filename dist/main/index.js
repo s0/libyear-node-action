@@ -3900,6 +3900,7 @@ exports.setLibyearPath = setLibyearPath;
  * (supporting both live (built) and test environments)
  */
 var getLibyearModulePath = function () {
+    /* istanbul ignore else */
     if (libyearPath) {
         return libyearPath;
     }
