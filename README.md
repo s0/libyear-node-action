@@ -113,9 +113,5 @@ We use this for this repository, you can see the workflow here:
 
 ## TODO
 
-* Add functionality to compare libyear metrics between target and base of a pull
-  request, and leave a comment on the PR with the difference.
-* Allow for libyear to be run against different directories
-  (e.g. to support monorepos)
-* Allow for configuration of the arguments to send to libyear
-* Switch to programmatic use once that becomes available in `libyear`
+Please see the [issues](https://github.com/s0/libyear-node-action/issues) for
+details of planned work.
