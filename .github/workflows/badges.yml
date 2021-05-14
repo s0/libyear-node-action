@@ -1,5 +1,10 @@
 name: Generate Badges
-on: push
+on:
+  push:
+    branches:
+      - develop
+  schedule:
+    - cron: "0 0 * * *"
 
 jobs:
   get-badges:
@@ -56,4 +61,5 @@ jobs:
         BRANCH: badges
         FOLDER: badges
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        SQUASH_HISTORY: true
 
