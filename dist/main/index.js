@@ -3903,11 +3903,12 @@ var getLibyearModulePath = function () {
     if (libyearPath) {
         return libyearPath;
     }
-    else if (process.mainModule) {
-        return path.join(process.mainModule.path, 'libyear');
-    }
     else {
-        throw new Error('Unable to determine path of libyear');
+        /**
+         * When run on GitHub, the compiles libyear module is in the file
+         * ../libyear/index.js relative to the action module in dist/main/index.js
+         */
+        return path.join(path.dirname(__dirname), 'libyear');
     }
 };
 var runLibyear = function (directory) { return __awaiter(void 0, void 0, void 0, function () {
