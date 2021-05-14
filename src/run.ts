@@ -4,8 +4,9 @@ import { main } from './';
 
 main({
   env: process.env,
-  log: console
-}).catch(err => {
+  log: console,
+  cwd: process.cwd(),
+}).catch((err) => {
   console.error(err);
   process.exit(1);
-})
+});
