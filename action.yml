@@ -1,6 +1,6 @@
 # action.yml
-name: 'Node dependency libyear stats & PR checks'
-description: 'Track how well a repository is keeping up-to-date with NPM dependencies'
+name: 'Node.js dependency freshness via libyear'
+description: 'Track NPM dependency freshness'
 author: 'Sam Lanning <sam@samlanning.com>'
 runs:
   using: 'node12'
