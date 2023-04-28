@@ -3,7 +3,7 @@ name: 'Node.js dependency freshness via libyear'
 description: 'Track NPM dependency freshness'
 author: 'Sam Lanning <sam@samlanning.com>'
 runs:
-  using: 'node12'
+  using: 'node16'
   main: 'dist/main/index.js'
 branding:
   icon: 'bar-chart-2'
